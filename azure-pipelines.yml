@@ -6,11 +6,13 @@ steps:
   displayName: 'dotnet build $(buildConfiguration)'
 - task: DotNetCoreCLI@2
   inputs:
+    azureSubscription: 'dotnet-calculator-app-svc-con'
     command: 'publish'
     publishWebProjects: true
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: 'gab-dotNetSP'
-    appType: 'webAppLinux'
-    appName: 'gab-webapp'
+    azureSubscription: 'dotnet-calculator-app-svc-con'
+    appType: 'webApp'
+    appName: 'calculator-app'
     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    deploymentMethod: 'auto'
